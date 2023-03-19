@@ -19,6 +19,17 @@ pipeline {
     }
     
     
+    stage("push-dockerhub") {
+      scripts {
+        script {
+          withCredentials([string(credentialsId: 'docker_hub_oiestradag', variable: 'oiestradag')]){
+              sh 'docker login -u oiestradag -p ${oiestradag }'
+          }
+        }
+      }
+    }
+    
+    
     
     
     stage("test") {
