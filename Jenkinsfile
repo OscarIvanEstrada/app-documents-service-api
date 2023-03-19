@@ -23,6 +23,7 @@ pipeline {
       steps {
           withCredentials([string(credentialsId: 'docker_hub_oiestradag_pass', variable: 'pass')]){
               sh 'docker login -u oiestradag -p "$pass"'
+              sh 'docker push oiestradag/app-tra-documents-service-api'
           }
        }
     }
