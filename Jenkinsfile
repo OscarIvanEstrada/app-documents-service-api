@@ -41,6 +41,8 @@ pipeline {
     stage("deploy") {
       steps {
         echo 'deploying the applications...'
+        sh 'docker rm -f  app-tra-documents-service-api'
+        sh 'docker run -e PORT=8081 -e APP_VERSION=develop -e SQL_URL_CONECTION=jdbc:h2:mem:testdb -e SQL_USERNAME=sa -e SQL_PASSWORD=password -tid --name app-tra-documents-service-api -p 8082:8081 oiestradag/app-tra-documents-service-api /bin/bash'
       }
     }
     
