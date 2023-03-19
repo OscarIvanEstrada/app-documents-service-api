@@ -21,8 +21,8 @@ pipeline {
     
     stage("push-dockerhub") {
       steps {
-          withCredentials([string(credentialsId: 'docker_hub_oiestradag', variable: 'oiestradag')]){
-              sh 'docker login -u oiestradag -p "$oiestradag"'
+          withCredentials([string(credentialsId: 'docker_hub_oiestradag_pass', variable: 'pass')]){
+              sh 'docker login -u oiestradag -p "$pass"'
           }
        }
     }
