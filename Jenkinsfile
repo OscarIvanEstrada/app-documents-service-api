@@ -20,7 +20,7 @@ pipeline {
     
     
     stage("push-dockerhub") {
-      node {
+      steps {
           withCredentials([string(credentialsId: 'docker_hub_oiestradag', variable: 'oiestradag')]){
               sh 'docker login -u oiestradag -p ${oiestradag }'
           }
