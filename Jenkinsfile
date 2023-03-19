@@ -11,6 +11,15 @@ pipeline {
       }
     }
     
+     stage("build-docker-image") {
+      steps {
+        echo 'building the docker image...'
+        sh 'docker build -t oscar/app-tra-documents-service-api'
+      }
+    }
+    
+    
+    
     
     stage("test") {
       steps {
