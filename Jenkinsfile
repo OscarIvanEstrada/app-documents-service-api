@@ -18,7 +18,8 @@ pipeline {
       }
     }
     
-     stage("build-docker-image") {
+    /*
+    stage("build-docker-image") {
       steps {
         echo 'building the docker image...'
         sh 'docker build -t oiestradag/app-tra-documents-service-api .'
@@ -34,7 +35,7 @@ pipeline {
           }
        }
     }
-    
+    */
     
     
     
@@ -44,7 +45,7 @@ pipeline {
       }
     }
     
-    
+    /*
     stage("deploy") {
       steps {
         
@@ -57,7 +58,7 @@ pipeline {
             }
         }       
       }
-    }
+    }*/
     
    stage("docker swarm deploy") {
       steps {
