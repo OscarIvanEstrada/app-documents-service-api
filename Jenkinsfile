@@ -6,8 +6,12 @@ pipeline {
     
     stage("build") {
       steps {
-        echo 'building the applications...'
-        sh 'mvn clean package'
+         configFileProvider([configFile(fileId: 'app-documents-service-api', variable: 'CONFIG')]) {
+           echo 'building the applications...'
+           sh 'mvn clean package'
+           sh 'echo $CONFIG'
+        }
+        
       }
     }
     
