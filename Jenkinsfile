@@ -51,12 +51,24 @@ pipeline {
            configFileProvider([configFile(fileId: 'app-documents-service-api', variable: 'settingsFile')]) {
            echo 'deploying the applications...'
             script {
-              echo "The file $settingsFile"
               def config = readJSON file:"$settingsFile"
-              echo "The host for the  branch is: ${config.PORT}"
-              echo 'deploying the applications...'
               sh 'docker rm -f  app-tra-documents-service-api || true'
               sh "docker run -e PORT=${config.PORT} -e APP_VERSION=${config.APP_VERSION} -e SQL_URL_CONECTION=${config.SQL_URL_CONECTION} -e SQL_USERNAME=${config.SQL_USERNAME} -e SQL_PASSWORD=${config.SQL_PASSWORD} -tid --name app-tra-documents-service-api -p 8082:80 oiestradag/app-tra-documents-service-api /bin/bash"
+            }
+        }       
+      }
+    }
+    
+   stage("docker swarm deploy") {
+      steps {
+        
+           configFileProvider([configFile(fileId: 'app-documents-service-api', variable: 'settingsFile')]) {
+           echo 'deploying the applications...'
+            script {
+              echo "The file $settingsFile"
+              def config = readJSON file:"$settingsFile"
+              sh 'docker service rm app-tra-documents-service-api || true'
+              sh "docker service create --name app-tra-documents-service-api --replicas 1 -p 8081:80 -e PORT=${config.PORT} -e APP_VERSION=${config.APP_VERSION} -e SQL_URL_CONECTION=${config.SQL_URL_CONECTION} -e SQL_USERNAME=${config.SQL_USERNAME} -e SQL_PASSWORD=${config.SQL_PASSWORD} oiestradag/app-tra-documents-service-api"
             }
         }       
       }
