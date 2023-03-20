@@ -68,7 +68,7 @@ pipeline {
               echo "The file $settingsFile"
               def config = readJSON file:"$settingsFile"
               sh 'docker service rm app-tra-documents-service-api || true'
-              sh "docker service create --name app-tra-documents-service-api --replicas 1 -p 8081:80 -e PORT=${config.PORT} -e APP_VERSION=${config.APP_VERSION} -e SQL_URL_CONECTION=${config.SQL_URL_CONECTION} -e SQL_USERNAME=${config.SQL_USERNAME} -e SQL_PASSWORD=${config.SQL_PASSWORD} oiestradag/app-tra-documents-service-api"
+              sh "docker service create --name app-tra-documents-service-api --replicas 3 -p 8081:80 -e PORT=${config.PORT} -e APP_VERSION=${config.APP_VERSION} -e SQL_URL_CONECTION=${config.SQL_URL_CONECTION} -e SQL_USERNAME=${config.SQL_USERNAME} -e SQL_PASSWORD=${config.SQL_PASSWORD} oiestradag/app-tra-documents-service-api"
             }
         }       
       }
