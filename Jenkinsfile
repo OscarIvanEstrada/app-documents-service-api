@@ -8,9 +8,10 @@ pipeline {
       steps {
          configFileProvider([configFile(fileId: 'app-documents-service-api', variable: 'settingsFile')]) {
            echo 'building the applications...'
+           def config = readJSON file:"$settingsFile"
            script {
               echo "The file $settingsFile"
-              def config = readJSON file:"$settingsFile"
+              
               echo "The host for the  branch is: ${config.name}"    
            }
            sh 'mvn clean package'
