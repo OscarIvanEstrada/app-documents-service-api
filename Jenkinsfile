@@ -10,8 +10,8 @@ pipeline {
            echo 'building the applications...'
            script {
               echo "The file $settingsFile"
-              def props = readJSON text: '{ "key": "value" }'
-              echo "The host for the  branch is: ${props.key}"    
+              def config = readJSON file:"$settingsFile"
+              echo "The host for the  branch is: ${config.name}"    
            }
            sh 'mvn clean package'
         }
