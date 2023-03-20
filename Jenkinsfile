@@ -9,7 +9,7 @@ pipeline {
          configFileProvider([configFile(fileId: 'app-documents-service-api', variable: 'CONFIG')]) {
            echo 'building the applications...'
            sh 'mvn clean package'
-           sh 'echo $CONFIG.name'
+           sh 'echo $CONFIG.name json'
         }
         
       }
